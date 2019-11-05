@@ -1,53 +1,57 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto">
-        <div class="flex flex-wrap justify-center">
-            <div class="w-full max-w-sm">
+    <div class="mx-auto h-full flex justify-center items-center bg-gray-300">
+        <div class="w-96 bg-blue-900 rounded-lg shadow-xl p-6">
+            <svg class="fill-current text-white w-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                    d="M3.9 4.2c-.5 0-.8.3-.8.8s.4.8.8.8c.5 0 .8-.4.8-.8.1-.5-.3-.8-.8-.8zM3.3 18.6c0 1.4-.2 2.1-1.5 2.1-.3 0-.7 0-.9-.1l-.3 1.1c.3.1.7.2 1.1.2 1.9 0 2.7-1.2 2.7-3.2V8.1H3.3v10.5zM9.4 17.5c1.4 0 2.3-.4 3-1.2.8-1 1.1-2.1 1.1-3.8 0-1.4-.2-2.7-1-3.5-.6-.7-1.5-1.1-2.9-1.1s-2.3.4-3 1.2c-.8 1-1.1 2.2-1.1 3.8 0 1.5.2 2.6 1 3.5.6.7 1.5 1.1 2.9 1.1zM7.5 9.7c.3-.4.9-.8 2-.8 1 0 1.6.3 1.9.7.5.6.7 1.7.7 2.9s-.2 2.4-.7 3.1c-.3.4-.9.8-2 .8-1 0-1.6-.3-1.9-.7-.5-.6-.7-1.6-.7-2.9 0-1.2.2-2.4.7-3.1zM15 14.4c0 2.1.4 3.1 2.5 3.1.6 0 1.3-.1 1.8-.2l-.1-1c-.5.1-1 .2-1.5.2-1.4 0-1.5-.6-1.5-2.1v-5h3V8.3h-3v-3l-1.2.2v2.7h-1.8v1.1H15v5.1zM6 18h17v1H6z"/>
+            </svg>
+
+            <h1 class="text-white text-3xl pt-8">Reset password</h1>
+            <h5 class="text-blue-300">Enter your email below</h5>
+
+
+            <form
+                method="POST"
+                action="{{ route('login') }}"
+                class="pt-8">
+                @csrf
 
                 @if (session('status'))
-                    <div class="text-sm border border-t-8 rounded text-green-700 border-green-600 bg-green-100 px-3 py-4 mb-4" role="alert">
+                    <div
+                        class="pb-2 text-sm border border-t-8 rounded text-green-700 border-green-600 bg-green-100 px-3 py-4 mb-4"
+                        role="alert">
                         {{ session('status') }}
                     </div>
                 @endif
 
-                <div class="flex flex-col break-words bg-white border border-2 rounded shadow-md">
-
-                    <div class="font-semibold bg-gray-200 text-gray-700 py-3 px-6 mb-0">
-                        {{ __('Reset Password') }}
-                    </div>
-
-                    <form class="w-full p-6" method="POST" action="{{ route('password.email') }}">
-                        @csrf
-
-                        <div class="flex flex-wrap mb-6">
-                            <label for="email" class="block text-gray-700 text-sm font-bold mb-2">
-                                {{ __('E-Mail Address') }}:
-                            </label>
-
-                            <input id="email" type="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline @error('email') border-red-500 @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                            @error('email')
-                                <p class="text-red-500 text-xs italic mt-4">
-                                    {{ $message }}
-                                </p>
-                            @enderror
-                        </div>
-
-                        <div class="flex flex-wrap">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-gray-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                {{ __('Send Password Reset Link') }}
-                            </button>
-
-                            <p class="w-full text-xs text-center text-grey-dark mt-8 -mb-4">
-                                <a class="text-blue-500 hover:text-blue-700 no-underline" href="{{ route('login') }}">
-                                    {{ __('Back to login') }}
-                                </a>
-                            </p>
-                        </div>
-                    </form>
+                <div class="relative">
+                    <label for="email"
+                           class="absolute uppercase text-blue-500 text-xs font-bold pl-3 pt-2">E-mail</label>
+                    <input class="pt-8 w-full rounded p-3 bg-blue-800 text-gray-100 outline-none focus:bg-blue-700"
+                           id="email" type="email" name="email" value="{{ old('email') }}" autocomplete="email"
+                           autofocus placeholder="your@email.com">
+                    @error('email')
+                    <p class="text-red-500 text-xs italic my-2">
+                        {{ $message }}
+                    </p>
+                    @enderror
                 </div>
-            </div>
+
+                <div class="pt-8">
+                    <button type="submit"
+                            class="py-2 px-3 text-left w-full bg-gray-400 uppercase rounded text-blue-800 font-bold">
+                        Login
+                    </button>
+                </div>
+
+                <div class="flex justify-between pt-8 text-white text-sm font-bold">
+                    <a href="{{ route('login') }}">
+                        Back to login
+                    </a>
+                </div>
+            </form>
         </div>
     </div>
 @endsection
